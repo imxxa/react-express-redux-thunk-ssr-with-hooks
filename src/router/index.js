@@ -6,7 +6,7 @@ import Routes from './Routes';
 export default () => {
   return (
     <BrowserRouter>
-      <div>{renderRoutes(Routes)}</div>
+        <div>{renderRoutes(Routes)}</div>
     </BrowserRouter>
   );
 };
