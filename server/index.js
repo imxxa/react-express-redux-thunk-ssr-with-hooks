@@ -13,7 +13,7 @@ app.use('/img', express.static('img'));
 app.get('*', async (req, res) => {
 
 
-  const actions = matchRoutes(Routes, req.path)
+const actions = matchRoutes(Routes, req.path)
     .map(({ route }) => route.component.fetching ? route.component.fetching({...store, path: req.path }) : null)
     .map(async actions => await Promise.all(
       (actions || []).map(p => p && new Promise(resolve => p.then(resolve).catch(resolve)))

@@ -12,7 +12,7 @@ const Posts = function() {
     }, []);
 
     return(
-        <div>
+        <section className="post-item">
             {
                 users.map((el) => {
                     return (
@@ -22,7 +22,7 @@ const Posts = function() {
                     )
                 })
             }
-        </div>
+        </section>
     )
 
 }
