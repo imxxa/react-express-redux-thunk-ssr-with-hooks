@@ -6,7 +6,8 @@
 
 ### Prod
 <p>
-yarn add axios express react react-dom react-redux react-router-config react-router-dom redux redux-thunk
+yarn add axios express react react-dom react-redux react-router-config react-router-dom redux redux-thunk dotenv serialize-javascript cors 
+bcryptjs morgan http-errors mongoose nodemon npm-run-all
 </p>
 
 ## Pre requirements

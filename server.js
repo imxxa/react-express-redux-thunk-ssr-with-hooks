@@ -10,6 +10,21 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./server/app.js":
+/*!***********************!*\
+  !*** ./server/app.js ***!
+  \***********************/
+/*! flagged exports */
+/*! export __esModule [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__ */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n  value: true\n}));\n\nvar _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ \"babel-runtime/regenerator\");\n\nvar _regenerator2 = _interopRequireDefault(_regenerator);\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _reactRouterConfig = __webpack_require__(/*! react-router-config */ \"react-router-config\");\n\nvar _render = __webpack_require__(/*! ./render */ \"./server/render.js\");\n\nvar _render2 = _interopRequireDefault(_render);\n\nvar _store = __webpack_require__(/*! ../src/redux/store */ \"./src/redux/store.js\");\n\nvar _store2 = _interopRequireDefault(_store);\n\nvar _Routes = __webpack_require__(/*! ../src/router/Routes */ \"./src/router/Routes.js\");\n\nvar _Routes2 = _interopRequireDefault(_Routes);\n\nvar _morgan = __webpack_require__(/*! morgan */ \"morgan\");\n\nvar _morgan2 = _interopRequireDefault(_morgan);\n\nvar _cors = __webpack_require__(/*! cors */ \"cors\");\n\nvar _cors2 = _interopRequireDefault(_cors);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step(\"next\", value); }, function (err) { step(\"throw\", err); }); } } return step(\"next\"); }); }; }\n\nvar app = (0, _express2.default)();\n\napp.use((0, _cors2.default)());\napp.use((0, _morgan2.default)('dev'));\napp.use(_express2.default.json());\napp.use(_express2.default.urlencoded({\n  extended: true\n}));\n\napp.use('/dist', _express2.default.static('dist'));\napp.use('/img', _express2.default.static('img'));\napp.get('*', function () {\n  var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res) {\n    var actions, context, content;\n    return _regenerator2.default.wrap(function _callee2$(_context2) {\n      while (1) {\n        switch (_context2.prev = _context2.next) {\n          case 0:\n            actions = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref2) {\n              var route = _ref2.route;\n              return route.component.fetching ? route.component.fetching(_extends({}, _store2.default, { path: req.path })) : null;\n            }).map(function () {\n              var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(actions) {\n                return _regenerator2.default.wrap(function _callee$(_context) {\n                  while (1) {\n                    switch (_context.prev = _context.next) {\n                      case 0:\n                        _context.next = 2;\n                        return Promise.all((actions || []).map(function (p) {\n                          return p && new Promise(function (resolve) {\n                            return p.then(resolve).catch(resolve);\n                          });\n                        }));\n\n                      case 2:\n                        return _context.abrupt('return', _context.sent);\n\n                      case 3:\n                      case 'end':\n                        return _context.stop();\n                    }\n                  }\n                }, _callee, undefined);\n              }));\n\n              return function (_x3) {\n                return _ref3.apply(this, arguments);\n              };\n            }());\n            _context2.next = 3;\n            return Promise.all(actions);\n\n          case 3:\n            context = {};\n            content = (0, _render2.default)(req.path, _store2.default, context);\n\n\n            res.send(content);\n\n          case 6:\n          case 'end':\n            return _context2.stop();\n        }\n      }\n    }, _callee2, undefined);\n  }));\n\n  return function (_x, _x2) {\n    return _ref.apply(this, arguments);\n  };\n}());\n\nexports.default = app;\n\n//# sourceURL=webpack://react-ssr/./server/app.js?");
+
+/***/ }),
+
 /***/ "./server/render.js":
 /*!**************************!*\
   !*** ./server/render.js ***!
@@ -36,7 +51,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n\tvalue: true\n}));
 /*! runtime requirements: __webpack_exports__, __webpack_require__ */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactRedux = __webpack_require__(/*! react-redux */ \"react-redux\");\n\nvar _action = __webpack_require__(/*! ../../redux/action */ \"./src/redux/action/index.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar Posts = function Posts() {\n\n    var dispatch = (0, _reactRedux.useDispatch)();\n    var users = (0, _reactRedux.useSelector)(function (state) {\n        return state.users.users;\n    });\n\n    (0, _react.useEffect)(function () {\n        dispatch((0, _action.fetchUsers)());\n    }, []);\n\n    return _react2.default.createElement(\n        'section',\n        { className: 'post-item' },\n        users.map(function (el) {\n            return _react2.default.createElement(\n                'div',\n                { key: el.id },\n                _react2.default.createElement(\n                    'h3',\n                    null,\n                    el.name\n                )\n            );\n        })\n    );\n};\n\nPosts.fetching = function (_ref) {\n    var dispatch = _ref.dispatch,\n        path = _ref.path;\n\n    console.log('PATH', path);\n    return [dispatch((0, _action.fetchUsers)())];\n};\n\nexports.default = Posts;\n\n//# sourceURL=webpack://react-ssr/./src/components/Posts/index.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactRedux = __webpack_require__(/*! react-redux */ \"react-redux\");\n\nvar _action = __webpack_require__(/*! ../../redux/action */ \"./src/redux/action/index.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar Posts = function Posts() {\n\n    var dispatch = (0, _reactRedux.useDispatch)();\n    var users = (0, _reactRedux.useSelector)(function (state) {\n        return state.users.users;\n    });\n\n    (0, _react.useEffect)(function () {\n        dispatch((0, _action.fetchUsers)());\n    }, []);\n\n    return _react2.default.createElement(\n        'section',\n        { className: 'post-itemm' },\n        users.map(function (el) {\n            return _react2.default.createElement(\n                'div',\n                { key: el.id },\n                _react2.default.createElement(\n                    'h3',\n                    null,\n                    el.name\n                )\n            );\n        })\n    );\n};\n\nPosts.fetching = function (_ref) {\n    var dispatch = _ref.dispatch,\n        path = _ref.path;\n\n    console.log('PATH', path);\n    return [dispatch((0, _action.fetchUsers)())];\n};\n\nexports.default = Posts;\n\n//# sourceURL=webpack://react-ssr/./src/components/Posts/index.js?");
 
 /***/ }),
 
@@ -249,6 +264,32 @@ eval("module.exports = require(\"babel-runtime/regenerator\");;\n\n//# sourceURL
 
 /***/ }),
 
+/***/ "cors":
+/*!***********************!*\
+  !*** external "cors" ***!
+  \***********************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+eval("module.exports = require(\"cors\");;\n\n//# sourceURL=webpack://react-ssr/external_%22cors%22?");
+
+/***/ }),
+
+/***/ "dotenv":
+/*!*************************!*\
+  !*** external "dotenv" ***!
+  \*************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+eval("module.exports = require(\"dotenv\");;\n\n//# sourceURL=webpack://react-ssr/external_%22dotenv%22?");
+
+/***/ }),
+
 /***/ "express":
 /*!**************************!*\
   !*** external "express" ***!
@@ -259,6 +300,58 @@ eval("module.exports = require(\"babel-runtime/regenerator\");;\n\n//# sourceURL
 /***/ ((module) => {
 
 eval("module.exports = require(\"express\");;\n\n//# sourceURL=webpack://react-ssr/external_%22express%22?");
+
+/***/ }),
+
+/***/ "http-errors":
+/*!******************************!*\
+  !*** external "http-errors" ***!
+  \******************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+eval("module.exports = require(\"http-errors\");;\n\n//# sourceURL=webpack://react-ssr/external_%22http-errors%22?");
+
+/***/ }),
+
+/***/ "mongoose":
+/*!***************************!*\
+  !*** external "mongoose" ***!
+  \***************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+eval("module.exports = require(\"mongoose\");;\n\n//# sourceURL=webpack://react-ssr/external_%22mongoose%22?");
+
+/***/ }),
+
+/***/ "morgan":
+/*!*************************!*\
+  !*** external "morgan" ***!
+  \*************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+eval("module.exports = require(\"morgan\");;\n\n//# sourceURL=webpack://react-ssr/external_%22morgan%22?");
+
+/***/ }),
+
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+eval("module.exports = require(\"path\");;\n\n//# sourceURL=webpack://react-ssr/external_%22path%22?");
 
 /***/ }),
 
@@ -398,7 +491,7 @@ eval("module.exports = require(\"serialize-javascript\");;\n\n//# sourceURL=webp
   \*************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: __webpack_require__ */
-eval("\n\nvar _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ \"babel-runtime/regenerator\");\n\nvar _regenerator2 = _interopRequireDefault(_regenerator);\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _reactRouterConfig = __webpack_require__(/*! react-router-config */ \"react-router-config\");\n\nvar _render = __webpack_require__(/*! ./render */ \"./server/render.js\");\n\nvar _render2 = _interopRequireDefault(_render);\n\nvar _store = __webpack_require__(/*! ../src/redux/store */ \"./src/redux/store.js\");\n\nvar _store2 = _interopRequireDefault(_store);\n\nvar _Routes = __webpack_require__(/*! ../src/router/Routes */ \"./src/router/Routes.js\");\n\nvar _Routes2 = _interopRequireDefault(_Routes);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step(\"next\", value); }, function (err) { step(\"throw\", err); }); } } return step(\"next\"); }); }; }\n\nvar PORT = process.env.PORT || 8079;\nvar app = (0, _express2.default)();\n\napp.use('/dist', _express2.default.static('dist'));\napp.use('/img', _express2.default.static('img'));\napp.get('*', function () {\n  var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res) {\n    var actions, context, content;\n    return _regenerator2.default.wrap(function _callee2$(_context2) {\n      while (1) {\n        switch (_context2.prev = _context2.next) {\n          case 0:\n            actions = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref2) {\n              var route = _ref2.route;\n              return route.component.fetching ? route.component.fetching(_extends({}, _store2.default, { path: req.path })) : null;\n            }).map(function () {\n              var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(actions) {\n                return _regenerator2.default.wrap(function _callee$(_context) {\n                  while (1) {\n                    switch (_context.prev = _context.next) {\n                      case 0:\n                        _context.next = 2;\n                        return Promise.all((actions || []).map(function (p) {\n                          return p && new Promise(function (resolve) {\n                            return p.then(resolve).catch(resolve);\n                          });\n                        }));\n\n                      case 2:\n                        return _context.abrupt('return', _context.sent);\n\n                      case 3:\n                      case 'end':\n                        return _context.stop();\n                    }\n                  }\n                }, _callee, undefined);\n              }));\n\n              return function (_x3) {\n                return _ref3.apply(this, arguments);\n              };\n            }());\n            _context2.next = 3;\n            return Promise.all(actions);\n\n          case 3:\n            context = {};\n            content = (0, _render2.default)(req.path, _store2.default, context);\n\n\n            res.send(content);\n\n          case 6:\n          case 'end':\n            return _context2.stop();\n        }\n      }\n    }, _callee2, undefined);\n  }));\n\n  return function (_x, _x2) {\n    return _ref.apply(this, arguments);\n  };\n}());\n\napp.listen(PORT, function () {\n  return console.log('Frontend service listening on port: ' + PORT);\n});\n\n//# sourceURL=webpack://react-ssr/./server/index.js?");
+eval("\n\nvar _app = __webpack_require__(/*! ./app */ \"./server/app.js\");\n\nvar _app2 = _interopRequireDefault(_app);\n\nvar _dotenv = __webpack_require__(/*! dotenv */ \"dotenv\");\n\nvar _dotenv2 = _interopRequireDefault(_dotenv);\n\nvar _path = __webpack_require__(/*! path */ \"path\");\n\nvar _path2 = _interopRequireDefault(_path);\n\nvar _mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _mongoose2 = _interopRequireDefault(_mongoose);\n\nvar _httpErrors = __webpack_require__(/*! http-errors */ \"http-errors\");\n\nvar _httpErrors2 = _interopRequireDefault(_httpErrors);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n_dotenv2.default.config({\n  path: _path2.default.join(__dirname, '.env')\n});\n\n_mongoose2.default.set('useCreateIndex', true);\n_mongoose2.default.set('useUnifiedTopology', true);\n_mongoose2.default.connect(process.env.MONGO_URL, {\n  useNewUrlParser: true\n}).then(function () {\n  console.log('Connection mongodb success!!!');\n}).catch(function (error) {\n  return console.log(error);\n});\n\nvar PORT = process.env.PORT || 8079;\n\n// catch 404 and forward to error handler\n_app2.default.use(function (req, res, next) {\n  next((0, _httpErrors2.default)(404));\n});\n\n// error handler\n_app2.default.use(function (err, req, res, next) {\n  // set locals, only providing error in development\n  res.locals.message = err.message;\n  res.locals.error = req.app.get('env') === 'development' ? err : {};\n\n  // render the error page\n  res.status(err.status || 500);\n  res.render('error');\n});\n\n_app2.default.listen(PORT, function () {\n  return console.log('Frontend service listening on port: ' + PORT);\n});\n\n//# sourceURL=webpack://react-ssr/./server/index.js?");
 })();
 
 /******/ })()

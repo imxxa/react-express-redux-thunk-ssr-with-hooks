@@ -1,30 +1,39 @@
-import express from 'express';
-import { matchRoutes } from 'react-router-config';
-import render from './render';
-import store from '../src/redux/store';
-import Routes from '../src/router/Routes';
+import app from './app';
+import dotenv from 'dotenv';
+import path from 'path';
+import mongoose from 'mongoose';
+import createError from 'http-errors';
 
+dotenv.config({
+  path: path.join(__dirname, '.env'),
+});
+
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect(
+    process.env.MONGO_URL, {
+      useNewUrlParser: true,
+    },
+  ).then(() => {
+    console.log('Connection mongodb success!!!');
+  }).catch((error) => console.log(error));
 
 const PORT = process.env.PORT || 8079;
-const app = express();
 
-app.use('/dist', express.static('dist'));
-app.use('/img', express.static('img'));
-app.get('*', async (req, res) => {
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-const actions = matchRoutes(Routes, req.path)
-    .map(({ route }) => route.component.fetching ? route.component.fetching({...store, path: req.path }) : null)
-    .map(async actions => await Promise.all(
-      (actions || []).map(p => p && new Promise(resolve => p.then(resolve).catch(resolve)))
-      )
-    );
-
-  await  Promise.all(actions);
-  const context = {};
-  const content = render(req.path, store, context);
-
-  res.send(content);
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 app.listen(PORT, () => console.log(`Frontend service listening on port: ${PORT}`));
